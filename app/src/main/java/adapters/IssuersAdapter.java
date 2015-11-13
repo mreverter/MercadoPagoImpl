@@ -28,25 +28,25 @@ public class IssuersAdapter extends ArrayAdapter<Issuer>{
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        View v = convertView;
+        View view = convertView;
 
-        if (v == null) {
+        if (view == null) {
             LayoutInflater vi;
             vi = LayoutInflater.from(getContext());
-            v = vi.inflate(R.layout.issuers_row_layout, null);
+            view = vi.inflate(R.layout.issuers_row_layout, null);
         }
 
         Issuer p = getItem(position);
 
         if (p != null) {
-            TextView tt1 = (TextView) v.findViewById(R.id.name);
+            TextView textViewName = (TextView) view.findViewById(R.id.name);
 
-            if (tt1 != null) {
-                tt1.setText(p.getName());
+            if (textViewName != null) {
+                textViewName.setText(p.getName());
             }
 
         }
 
-        return v;
+        return view;
     }
 }

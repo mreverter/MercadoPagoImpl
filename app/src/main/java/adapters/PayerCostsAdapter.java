@@ -30,25 +30,25 @@ public class PayerCostsAdapter extends ArrayAdapter<PayerCost> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        View v = convertView;
+        View view = convertView;
 
-        if (v == null) {
+        if (view == null) {
             LayoutInflater vi;
             vi = LayoutInflater.from(getContext());
-            v = vi.inflate(R.layout.payer_costs_row_layout, null);
+            view = vi.inflate(R.layout.payer_costs_row_layout, null);
         }
 
         PayerCost p = getItem(position);
 
         if (p != null) {
-            TextView tt1 = (TextView) v.findViewById(R.id.name);
+            TextView textViewMessage = (TextView) view.findViewById(R.id.name);
 
-            if (tt1 != null) {
-                tt1.setText(p.getRecommendedMessage());
+            if (textViewMessage != null) {
+                textViewMessage.setText(p.getRecommendedMessage());
             }
 
         }
 
-        return v;
+        return view;
     }
 }

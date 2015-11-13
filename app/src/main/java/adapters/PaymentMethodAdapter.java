@@ -34,21 +34,21 @@ public class PaymentMethodAdapter extends ArrayAdapter<PaymentMethod> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        View v = convertView;
+        View view = convertView;
 
-        if (v == null) {
+        if (view == null) {
             LayoutInflater vi;
             vi = LayoutInflater.from(getContext());
-            v = vi.inflate(R.layout.payment_methods_row_layout, null);
+            view = vi.inflate(R.layout.payment_methods_row_layout, null);
         }
 
         PaymentMethod paymentMethod = getItem(position);
 
         if (paymentMethod != null) {
-            TextView tt1 = (TextView) v.findViewById(R.id.name);
-            ImageView image = (ImageView) v.findViewById(R.id.image);
-            if (tt1 != null) {
-                tt1.setText(paymentMethod.getId());
+            TextView textViewId = (TextView) view.findViewById(R.id.name);
+            ImageView image = (ImageView) view.findViewById(R.id.image);
+            if (textViewId != null) {
+                textViewId.setText(paymentMethod.getId());
             }
             if(image != null){
                 image.setImageResource(MercadoPagoUtil.getPaymentMethodIcon(this.mContext, paymentMethod.getId()));
@@ -56,6 +56,6 @@ public class PaymentMethodAdapter extends ArrayAdapter<PaymentMethod> {
 
         }
 
-        return v;
+        return view;
     }
 }

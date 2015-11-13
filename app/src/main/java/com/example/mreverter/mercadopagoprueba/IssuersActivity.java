@@ -62,7 +62,7 @@ public class IssuersActivity extends ListActivity {
 
             @Override
             public void failure(RetrofitError error) {
-
+                error.printStackTrace();
             }
         });
 
