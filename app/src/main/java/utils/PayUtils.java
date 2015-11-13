@@ -28,8 +28,8 @@ public class PayUtils {
     public static final BigDecimal DUMMY_ITEM_UNIT_PRICE = new BigDecimal("100");
 
     public static final String DUMMY_MERCHANT_PUBLIC_KEY = "444a9ef5-8a6b-429f-abdf-587639155d88";
-
     // * Merchant server vars
+    public static final String DUMMY_MERCHANT_GET_CUSTOMER_URI = "/checkout/examples/getCustomer";
     public static final String DUMMY_MERCHANT_BASE_URL = "https://www.mercadopago.com";
     public static final String DUMMY_MERCHANT_CREATE_PAYMENT_URI = "/checkout/examples/doPayment";
 

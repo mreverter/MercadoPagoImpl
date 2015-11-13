@@ -3,12 +3,14 @@
     <string name="action_settings">Settings</string>
     <string name="title_activity_payment_f1">Input card data</string>
     <string name="title_activity_payment_method"></string>
-    <string name="mp_public_key">TEST-4021c912-cdfa-4595-b37b-59b92765b663</string>
+    <string name="mp_public_key">APP_USR-804b218f-b62b-4511-ae3e-c493aa0bbd8d</string>
     <string name="title_activity_my_payment_methods_list">Choose a payment method</string>
     <string name="title_activity_installments">Choose number of installments</string>
     <string name="title_activity_issuers">Choose your bank</string>
     <string name="title_activity_payment_result">The end</string>
     <string name="title_activity_payment_confirmation">Confirm payment</string>
     <string name="title_activity_my_items">Choose an item!</string>
+    <string name="title_activity_flavor_choise">FlavorChoiseActivity</string>
+    <string name="title_activity_fake_vault">Vault</string>
 
 </resources>

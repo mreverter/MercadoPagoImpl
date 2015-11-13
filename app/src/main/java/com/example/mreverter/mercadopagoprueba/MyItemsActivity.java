@@ -10,7 +10,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
+import com.mercadopago.core.MercadoPago;
 import com.mercadopago.util.JsonUtil;
 import com.mercadopago.util.LayoutUtil;
 
@@ -20,11 +22,18 @@ import java.util.List;
 
 import adapters.ItemsAdapter;
 import model.ItemView;
+import utils.PayUtils;
 
 public class MyItemsActivity extends ListActivity {
 
     private List<ItemView> mItems;
     private Activity mActivity;
+    private String mFlavor;
+    protected List<String> mSupportedPaymentTypes = new ArrayList<String>(){{
+        add("credit_card");
+        add("debit_card");
+        add("prepaid_card");
+    }};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,13 +42,35 @@ public class MyItemsActivity extends ListActivity {
         mActivity = this;
         Toolbar mActionBarToolbar = (Toolbar) findViewById(R.id.toolbar);
         mActionBarToolbar.setTitle(R.string.title_activity_my_items);
+        this.mFlavor = getIntent().getExtras().getString("flavor");
         this.populateItemsList();
     }
 
     private void beginBuy(ItemView item) {
-        Intent intent = new Intent(MyItemsActivity.this, MyPaymentMethodsListActivity.class);
-        intent.putExtra("item", JsonUtil.getInstance().toJson(item));
-        startActivity(intent);
+
+        if(this.mFlavor.equals("3")) {
+            new MercadoPago.StartActivityBuilder()
+                    .setActivity(this)
+                    .setPublicKey(getResources().getString(R.string.mp_public_key))
+                    .setMerchantBaseUrl(PayUtils.DUMMY_MERCHANT_BASE_URL)
+                    .setMerchantGetCustomerUri(PayUtils.DUMMY_MERCHANT_GET_CUSTOMER_URI)
+                    .setMerchantAccessToken(PayUtils.DUMMY_MERCHANT_ACCESS_TOKEN)
+                    .setAmount(item.getPrice())
+                    .setSupportedPaymentTypes(mSupportedPaymentTypes)
+                    .setShowBankDeals(true)
+                    .startVaultActivity();
+        }
+        else if(this.mFlavor.equals("2")){
+            Intent intent = new Intent(MyItemsActivity.this, FakeVaultActivity.class);
+            intent.putExtra("item", JsonUtil.getInstance().toJson(item));
+            startActivity(intent);
+        }
+        else
+        {
+            Intent intent = new Intent(MyItemsActivity.this, MyPaymentMethodsListActivity.class);
+            intent.putExtra("item", JsonUtil.getInstance().toJson(item));
+            startActivity(intent);
+        }
     }
 
 
@@ -85,6 +116,18 @@ public class MyItemsActivity extends ListActivity {
         ItemView selectedItem = (ItemView) getListView().getItemAtPosition(position);
 
         this.beginBuy(selectedItem);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if (requestCode == MercadoPago.VAULT_REQUEST_CODE) {
+            if (resultCode == RESULT_OK) {
+                Toast.makeText(this, "Success!", Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(MyItemsActivity.this, FlavorChoiseActivity.class);
+                startActivity(intent);
+            }
+        }
     }
 
 }

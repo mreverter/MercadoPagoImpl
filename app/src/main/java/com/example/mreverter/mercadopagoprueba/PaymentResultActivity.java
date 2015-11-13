@@ -56,8 +56,7 @@ public class PaymentResultActivity extends AppCompatActivity {
     }
 
     private void restarTestApp() {
-        Intent intent = new Intent();
-        intent.setComponent(new ComponentName("com.example.mreverter.flavor2", "com.example.mreverter.flavor2.FlavorChoiseActivity"));
+        Intent intent = new Intent(PaymentResultActivity.this, FlavorChoiseActivity.class);
         startActivity(intent);
     }
 
